@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { handleError, handleSuccess } from "../utils/toastify";
+import axios from 'axios';
 
 const Signup = () => {
 
@@ -9,6 +11,7 @@ const Signup = () => {
         password: '',
         role: ''
     });
+    const navigate = useNavigate();
     
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -16,9 +19,22 @@ const Signup = () => {
 
     const handleSignup = async (e) => {
         e.preventDefault();
-        const { username, email, password, role } = form;
-        if(!username || !email || !password || !role) {
-            return ;
+        const { username, email, password } = form;
+        if(!username || !email || !password ) {
+            return handleError('All fields are required');
+        }
+        try {
+            const url = 'http://localhost:3000/api/auth/signup';
+            const response = await axios.post(url, form);
+            const { success, message} = response.data;
+            if(success){
+                handleSuccess(message);
+                setTimeout(() => {
+                    navigate('/login');      
+                }, 2000);
+            }
+        } catch (error) {
+            handleError('Username or Password must be 4 characters long');
         }
     };
 
@@ -89,7 +105,7 @@ const Signup = () => {
                 <div className="mb-4">
                     <label htmlFor="role" className="block text-sm font-medium text-gray-700">Role</label>
                     <select name="role" id="role" value={form.role} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:border-2 sm:text-sm">
-                        <option value="resident">Select Role</option>
+                        <option value="">Select Role</option>
                         <option value="admin">Admin</option>
                         <option value="resident">Resident</option>
                         <option value="it">IT Manager</option>
@@ -107,7 +123,7 @@ const Signup = () => {
                 </div>
 
                 {/* Login Link */}
-                <div className="flex justify-center">
+                <div className="flex justify-center mt-3">
                     <p className="text-sm mx-1">Already have an account?</p>
                     <Link
                     to="/login"

@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { handleError, handleSuccess } from "../utils/toastify";
+import axios from "axios";
 
 
 const LoginForm = () => {
@@ -8,6 +10,7 @@ const LoginForm = () => {
         email: '',
         password: ''
     });
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -15,6 +18,25 @@ const LoginForm = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        const { email, password } = form;
+        if(!email || !password ) {
+            return handleError('All fields are required');
+        }
+        try {
+            const url = 'http://localhost:3000/api/auth/login';
+            const response = await axios.post(url, form);
+            const { success, message, token, username} = response.data;
+            if(success){
+                handleSuccess(message);
+                localStorage.setItem('token', token);
+                localStorage.setItem('loggedInUser', username);
+                setTimeout(() => {
+                    navigate('/home');
+                }, 1000);
+            }
+        } catch (error) {
+            handleError('email or password is incorrect');
+        }
     };
 
     return (
