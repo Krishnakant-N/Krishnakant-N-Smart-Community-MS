@@ -10,7 +10,7 @@ router.get('/:userId', ensureAuthentication, async (req, res) => {
     const { userId } = req.params;
     const bills = await Bill.find({ user_id: userId });
     if (!bills || bills.length === 0) {
-        return res.status(404).json({ message: 'No bills found' });
+        return res.status(404).json({ success: false, message: 'No bills found'});
     }
     res.status(200).json(bills);
     } catch (error) {

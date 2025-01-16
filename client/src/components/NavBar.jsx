@@ -34,7 +34,7 @@ function NavBar() {
             </div>
 
             {/* Navigation Links */}
-            <div className="flex space-x-8">
+            <div className="flex space-x-6 mr-4 text-lg">
             <NavLink
             to="/home"
             className={({ isActive }) =>
@@ -65,7 +65,7 @@ function NavBar() {
                 
                 {/* <!-- Logout Button --> */}
                 <button onClick={handleLogout}
-                className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium py-2 px-4 rounded transition">
+                className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium py-1 px-2 rounded transition">
                 Logout
                 </button>
             </div>
