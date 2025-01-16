@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import db from './config/db.js';
 import authRoutes from './routes/authRoutes.js'
-import billRoutes from './routes/billRouters.js'
+import billRoutes from './routes/billRoutes.js'
 
 dotenv.config()
 db()

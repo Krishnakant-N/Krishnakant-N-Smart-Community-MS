@@ -35,7 +35,7 @@ const LoginForm = () => {
                 }, 1000);
             }
         } catch (error) {
-            handleError('email or password is incorrect');
+            handleError('email or password is incorrect', error);
         }
     };
 
