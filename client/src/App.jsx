@@ -6,6 +6,7 @@ import {ToastContainer } from 'react-toastify'
 import { useState } from 'react'
 import RefreshHandler from './components/RefreshHandler'
 import Bills from './pages/Bills'
+import AuthWrapper from './components/AuthWrapper'
 
 
 function App() {
@@ -16,13 +17,17 @@ function App() {
   }
 
   return (
-    <div className='App'>
+    <div>
       <RefreshHandler setIsAuthenticated={setIsAuthenticated} />
       <Routes>
         <Route path='/' element={<Navigate to='/login' />} />
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<Signup/>} />
-        <Route path='/home' element={<PrivateRoute element={<Home/>} />} />
+        <Route path='/home' element={<PrivateRoute  element={
+          <AuthWrapper>
+            <Home/>
+          </AuthWrapper>
+        } />} />
         <Route path='/bills' element={<PrivateRoute element={<Bills/>} />} />
       </Routes>
       <ToastContainer />

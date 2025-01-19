@@ -39,8 +39,8 @@ function NavBar() {
             to="/home"
             className={({ isActive }) =>
                 isActive
-                ? "font-bold border-b-2 border-yellow-400"
-                : "text-white font-semibold  hover:text-yellow-300"
+                ? "font-bold bg-yellow-300 px-2 py-1 text-black/70 rounded-xl"
+                : "text-white font-semibold py-1 hover:text-yellow-300"
             }
             >
             Home
@@ -49,8 +49,8 @@ function NavBar() {
             to="/bills"
             className={({ isActive }) =>
                 isActive
-                ? " font-bold border-b-2 border-yellow-300"
-                : "text-white font-semibold hover:text-yellow-300"
+                ? " font-bold bg-yellow-300 px-2 py-1 text-black/70 rounded-xl"
+                : "text-white font-semibold py-1 hover:text-yellow-300"
             }
             >
             Bills
